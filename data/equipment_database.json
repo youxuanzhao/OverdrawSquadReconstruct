@@ -1,0 +1,52 @@
+{
+	"test": {
+		"helmet": {
+			"equipment_name": "helmet",
+			"equipment_display_name": "Helmet",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "head",
+			"equipment_desc": "test_helmet",
+			"equipment_display_desc": "test_helmet",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "helmet.png",
+			"rarity": "rare",
+			"cost" : 10.0
+		},
+		"helmet_epic": {
+			"equipment_name": "helmet",
+			"equipment_display_name": "Helmet",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "head",
+			"equipment_desc": "test_helmet",
+			"equipment_display_desc": "test_helmet",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "helmet.png",
+			"rarity": "epic",
+			"cost" : 10.0
+		},
+		"chestplate": {
+			"equipment_name": "chestplate",
+			"equipment_display_name": "Chestplate",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "chest",
+			"equipment_desc": "test_chestplate",
+			"equipment_display_desc": "test_chesplate",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "chestplate.png",
+			"rarity": "common",
+			"cost" : 5.0
+		},
+		"chestplate_epic": {
+			"equipment_name": "chestplate",
+			"equipment_display_name": "Chestplate",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "chest",
+			"equipment_desc": "test_chestplate",
+			"equipment_display_desc": "test_chesplate",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "chestplate.png",
+			"rarity": "epic",
+			"cost" : 5.0
+		}
+	}
+}

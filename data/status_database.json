@@ -1,0 +1,18 @@
+{
+	"standard": {
+		"poison": {
+			"status_name": "poison",
+			"status_display_name": "Poison",
+			"decay_time": 1,
+			"can_stack": true,
+			"resource": "poison.png"
+		},
+		"crit": {
+			"status_name": "crit",
+			"status_display_name": "Crit",
+			"decay_time": 1,
+			"can_stack": true,
+			"resource": "crit.png"
+		}
+	}
+}

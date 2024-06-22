@@ -1,0 +1,202 @@
+[gd_scene load_steps=18 format=3 uid="uid://cdoqsvk3uitq7"]
+
+[ext_resource type="Script" path="res://core/game_manager.gd" id="1_xxrc1"]
+[ext_resource type="Texture2D" uid="uid://btgiqn57h4q80" path="res://assets/general/equipment_holder_bg.png" id="2_csx4c"]
+[ext_resource type="Script" path="res://core/equipment_holder.gd" id="2_hytlt"]
+[ext_resource type="Script" path="res://core/camera_controller.gd" id="2_p7mrm"]
+[ext_resource type="PackedScene" uid="uid://b1mehyij5hphl" path="res://scene_files/equipment_slot.tscn" id="3_gsi7h"]
+[ext_resource type="Script" path="res://core/card_holder.gd" id="5_53sbl"]
+[ext_resource type="Texture2D" uid="uid://c1rr0ltj85ulg" path="res://assets/general/bar_health_under.png" id="7_7n842"]
+[ext_resource type="FontFile" uid="uid://dpb5ejluxx8kc" path="res://assets/font/retganon.ttf" id="7_yl100"]
+[ext_resource type="Texture2D" uid="uid://xfbhd2s1koq5" path="res://assets/general/bar_health_over.png" id="8_qrquu"]
+[ext_resource type="Script" path="res://core/enemy_holder.gd" id="9_dr6k4"]
+[ext_resource type="Texture2D" uid="uid://b2sp33cjd7qqv" path="res://assets/general/bar_health_progress.png" id="9_iy7uc"]
+[ext_resource type="Script" path="res://core/status_holder.gd" id="11_406qi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qld43"]
+sky_top_color = Color(0.815686, 0.47451, 0.913725, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+sky_curve = 0.0349888
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.313726, 0.384314, 0.901961, 1)
+ground_curve = 0.0141422
+sun_angle_max = 25.56
+sun_curve = 0.243676
+
+[sub_resource type="Sky" id="Sky_e2nx6"]
+sky_material = SubResource("ProceduralSkyMaterial_qld43")
+
+[sub_resource type="Environment" id="Environment_m04f0"]
+background_mode = 2
+sky = SubResource("Sky_e2nx6")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e1xt"]
+size = Vector2(1931, 329.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cgkis"]
+size = Vector2(5.64, 8.8)
+
+[node name="GameManager" type="Node3D"]
+script = ExtResource("1_xxrc1")
+stage = null
+player_hp = null
+player_hp_max = null
+player_hp_regen = null
+player_mp = null
+player_mp_max = null
+player_mp_regen = null
+max_hand_count = null
+hand_anim_speed = 0.3
+hand_anim_speed_fast = 0.15
+default_card_rotation_degree = null
+on_hover_card_rotation_degree = null
+offset_card_rotation_degree = 4.0
+default_card_fan_radius = null
+on_hover_card_fan_radius = 2800.0
+offset_card_fan_radius = null
+offset_card_fan_y_offset = 35.0
+critical_chance = null
+critical_damage_modifier = null
+global_cooldown_modifier = null
+damage_buff = null
+attack_buff = null
+spell_damage_buff = null
+spell_cost_modifier = null
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_m04f0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 3.42105, 15.8328, 0)
+shadow_enabled = true
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 2.08165e-12, 0.3, 2.08165e-12)
+script = ExtResource("2_p7mrm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EquipmentHolder" type="HBoxContainer" parent="CanvasLayer"]
+layout_direction = 2
+offset_left = 1056.0
+offset_right = 1632.0
+offset_bottom = 48.0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 0
+script = ExtResource("2_hytlt")
+
+[node name="EquipmentSlotHead" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "head"
+
+[node name="EquipmentSlot" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "chest"
+
+[node name="EquipmentSlot2" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "waist"
+
+[node name="EquipmentSlot3" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "leg"
+
+[node name="EquipmentSlot4" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "feet"
+
+[node name="EquipmentSlot5" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "wrist"
+
+[node name="EquipmentSlot6" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "hand"
+
+[node name="EquipmentSlot7" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "mainHand"
+
+[node name="EquipmentSlot9" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "offHand"
+
+[node name="EquipmentSlot8" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "leftFinger"
+
+[node name="EquipmentSlot11" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "rightFinger"
+
+[node name="EquipmentSlot10" parent="CanvasLayer/EquipmentHolder" instance=ExtResource("3_gsi7h")]
+layout_mode = 2
+body_part = "necklace"
+
+[node name="EquipmentBG" type="Sprite2D" parent="CanvasLayer/EquipmentHolder"]
+z_index = -1
+scale = Vector2(3, 3)
+texture = ExtResource("2_csx4c")
+centered = false
+
+[node name="CardHolder" type="Node2D" parent="CanvasLayer"]
+position = Vector2(933, 867)
+script = ExtResource("5_53sbl")
+
+[node name="OutOfHandDetection" type="Area2D" parent="CanvasLayer"]
+position = Vector2(0, 564)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/OutOfHandDetection"]
+position = Vector2(957, 351.75)
+shape = SubResource("RectangleShape2D_0e1xt")
+
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_right = 96.0
+offset_bottom = 16.0
+scale = Vector2(8, 5)
+value = 20.0
+rounded = true
+texture_under = ExtResource("7_7n842")
+texture_over = ExtResource("8_qrquu")
+texture_progress = ExtResource("9_iy7uc")
+
+[node name="PlayerHealthBarDisplay" type="Label" parent="CanvasLayer"]
+offset_left = 300.0
+offset_top = 14.0
+offset_right = 444.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("7_yl100")
+theme_override_font_sizes/font_size = 58
+text = "20"
+horizontal_alignment = 1
+
+[node name="PlayerManaBar" type="ProgressBar" parent="CanvasLayer"]
+offset_top = 116.0
+offset_right = 599.0
+offset_bottom = 176.0
+theme_override_fonts/font = ExtResource("7_yl100")
+theme_override_font_sizes/font_size = 48
+step = 1.0
+value = 20.0
+rounded = true
+
+[node name="StatusHolder" type="HBoxContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(200, 60)
+layout_direction = 3
+offset_left = 657.0
+offset_top = 91.0
+offset_right = 857.0
+offset_bottom = 151.0
+scale = Vector2(4, 4)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("11_406qi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.11285, 2.08165e-12)
+mesh = SubResource("PlaneMesh_cgkis")
+
+[node name="EnemyHolder" type="Node3D" parent="."]
+script = ExtResource("9_dr6k4")

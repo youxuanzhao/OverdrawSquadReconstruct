@@ -1,0 +1,18 @@
+{
+	"init_test": [
+		{
+			"equipment_set" : "test",
+			"equipment_name" : "helmet"
+		},
+		{
+			"equipment_set" : "test",
+			"equipment_name" : "chestplate"
+		}
+	],
+	"abc": [
+		{
+			"equipment_set" : "test",
+			"equipment_name" : "helmet_epic"
+		}
+	]
+}

@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://kbydv838gweb"]
+
+[ext_resource type="Script" path="res://core/entity_container.gd" id="1_20u4n"]
+[ext_resource type="Texture2D" uid="uid://cs51qb4ikak6f" path="res://assets/general/entity_card_back.png" id="1_xqpdp"]
+[ext_resource type="Texture2D" uid="uid://drxgp8ug2hewo" path="res://assets/entity/test/snake.png" id="2_oqxgr"]
+[ext_resource type="Texture2D" uid="uid://cn8np3ayg24e0" path="res://assets/general/entity_card_frame.png" id="3_vqby4"]
+[ext_resource type="Texture2D" uid="uid://b3rf4g2debafn" path="res://assets/general/entity_card_label.png" id="4_pdiu8"]
+[ext_resource type="FontFile" uid="uid://cwkip6e47ytnu" path="res://assets/font/dpcomic.ttf" id="5_q64f1"]
+
+[node name="Entity" type="Node3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+script = ExtResource("1_20u4n")
+
+[node name="CardBack" type="Sprite3D" parent="."]
+texture_filter = 0
+texture = ExtResource("1_xqpdp")
+
+[node name="CardArt" type="Sprite3D" parent="."]
+double_sided = false
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("2_oqxgr")
+
+[node name="CardFrame" type="Sprite3D" parent="."]
+double_sided = false
+texture_filter = 0
+render_priority = 2
+texture = ExtResource("3_vqby4")
+
+[node name="CardLabel" type="Sprite3D" parent="."]
+flip_v = true
+double_sided = false
+texture_filter = 0
+render_priority = 3
+texture = ExtResource("4_pdiu8")
+
+[node name="CardLabelText" type="Label3D" parent="CardLabel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.627537, 0)
+texture_filter = 0
+render_priority = 5
+outline_render_priority = 4
+outline_modulate = Color(0.184314, 0.133333, 0.309804, 1)
+text = "Snake"
+font = ExtResource("5_q64f1")

@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://cqqc6hwg1cvsk"]
+
+[ext_resource type="Script" path="res://core/entity_bar.gd" id="1_4axfo"]
+[ext_resource type="Texture2D" uid="uid://c1rr0ltj85ulg" path="res://assets/general/bar_health_under.png" id="1_jbl52"]
+[ext_resource type="Texture2D" uid="uid://xfbhd2s1koq5" path="res://assets/general/bar_health_over.png" id="2_p8273"]
+[ext_resource type="Texture2D" uid="uid://b2sp33cjd7qqv" path="res://assets/general/bar_health_progress.png" id="3_45ukk"]
+[ext_resource type="Texture2D" uid="uid://cgf6gykc3rfii" path="res://assets/general/cooldown_circle_small.png" id="5_bpo4t"]
+[ext_resource type="FontFile" uid="uid://cwkip6e47ytnu" path="res://assets/font/dpcomic.ttf" id="5_u81kk"]
+[ext_resource type="Texture2D" uid="uid://dc2tf8vt0reb6" path="res://assets/intent/attack_intent.png" id="6_42roj"]
+[ext_resource type="FontFile" uid="uid://dpb5ejluxx8kc" path="res://assets/font/retganon.ttf" id="7_ynvq6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ctixr"]
+outline_size = 2
+outline_color = Color(0.142256, 0.142256, 0.142256, 1)
+
+[node name="EntityBar" type="Node2D"]
+position = Vector2(1, 0)
+scale = Vector2(3, 3)
+script = ExtResource("1_4axfo")
+y_offset = 300.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 212.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+value = 54.0
+texture_under = ExtResource("1_jbl52")
+texture_over = ExtResource("2_p8273")
+texture_progress = ExtResource("3_45ukk")
+
+[node name="Action" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+max_value = 10.0
+step = 2.08165e-12
+value = 10.0
+fill_mode = 5
+texture_under = ExtResource("5_bpo4t")
+texture_progress = ExtResource("5_bpo4t")
+tint_under = Color(0.403922, 0.403922, 0.403922, 1)
+
+[node name="ActionToolTip" type="Sprite2D" parent="HBoxContainer/Action"]
+position = Vector2(4, 4)
+texture = ExtResource("6_42roj")
+centered = false
+
+[node name="ActionLabel" type="Label" parent="HBoxContainer/Action"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 23.0
+offset_bottom = 23.0
+scale = Vector2(1, 0.6)
+theme_override_fonts/font = ExtResource("7_ynvq6")
+theme_override_font_sizes/font_size = 14
+text = "5"
+label_settings = SubResource("LabelSettings_ctixr")
+
+[node name="HealthText" type="Label" parent="."]
+offset_left = 36.3333
+offset_top = 1.33333
+offset_right = 76.3333
+offset_bottom = 24.3333
+theme_override_fonts/font = ExtResource("5_u81kk")
+theme_override_font_sizes/font_size = 15
+text = "5/10"

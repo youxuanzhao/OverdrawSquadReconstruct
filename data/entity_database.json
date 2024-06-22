@@ -1,0 +1,32 @@
+{
+	"test": {
+		"snake": {
+			"entity_name": "snake",
+			"entity_display_name": "Snake",
+			"health": 120,
+			"entity_resource": "snake.png",
+			"min_loot_number": 0,
+			"max_loot_number": 1,
+			"loot_rate": 0.8,
+			"loot_list": [
+				{
+					"equipment_set": "test",
+					"equipment_name": "chestplate_epic",
+					"drop_rate": 20
+				},
+				{
+					"equipment_set": "test",
+					"equipment_name": "helmet_epic",
+					"drop_rate": 80
+				}
+			],
+			"loot_pool": "test"
+		}
+	},
+	"forest": {
+		"monster1": {
+			"health": 5,
+			"resource": "snake.png"
+		}
+	}
+}

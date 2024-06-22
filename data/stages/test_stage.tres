@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="StageResource" load_steps=2 format=3 uid="uid://dji4cdshy83xr"]
+
+[ext_resource type="Script" path="res://core/stage_resource.gd" id="1_mcdk2"]
+
+[resource]
+script = ExtResource("1_mcdk2")
+test_variables = 0

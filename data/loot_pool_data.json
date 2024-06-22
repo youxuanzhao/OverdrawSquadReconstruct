@@ -1,0 +1,13 @@
+{
+    "test":[
+        {
+            "equipment_set": "test",
+            "equipment_name" :  "helmet"
+        },
+        {
+            "equipment_set": "test",
+            "equipment_name" :  "chestplate"
+        }
+    ]
+
+}

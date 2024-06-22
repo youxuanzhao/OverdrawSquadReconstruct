@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dij3gnl2r3lqk"]
+
+[ext_resource type="Texture2D" uid="uid://cgf6gykc3rfii" path="res://assets/general/cooldown_circle_small.png" id="1_p7ch4"]
+[ext_resource type="Script" path="res://core/status_container.gd" id="2_3ybdw"]
+[ext_resource type="Texture2D" uid="uid://dc2tf8vt0reb6" path="res://assets/intent/attack_intent.png" id="2_cutwo"]
+[ext_resource type="FontFile" uid="uid://dpb5ejluxx8kc" path="res://assets/font/retganon.ttf" id="3_68gyr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ogam"]
+outline_size = 2
+outline_color = Color(0.142256, 0.142256, 0.142256, 1)
+
+[node name="StatusContainer" type="TextureProgressBar"]
+layout_direction = 2
+mouse_filter = 2
+max_value = 10.0
+step = 2.08165e-12
+value = 10.0
+fill_mode = 5
+texture_under = ExtResource("1_p7ch4")
+texture_progress = ExtResource("1_p7ch4")
+tint_under = Color(0.403922, 0.403922, 0.403922, 1)
+script = ExtResource("2_3ybdw")
+
+[node name="Tooltip" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+texture = ExtResource("2_cutwo")
+centered = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 23.0
+offset_bottom = 23.0
+scale = Vector2(1, 0.6)
+theme_override_fonts/font = ExtResource("3_68gyr")
+theme_override_font_sizes/font_size = 14
+text = "5"
+label_settings = SubResource("LabelSettings_8ogam")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
