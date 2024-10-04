@@ -1,6 +1,4 @@
 # Godot 4+ specific ignores
 .godot/
-aseprite_files/
 *.DS_Store
-*.aseprite
 .DS_Store
