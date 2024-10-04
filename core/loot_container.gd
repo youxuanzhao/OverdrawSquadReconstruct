@@ -4,6 +4,7 @@ extends Node3D
 const COMMON = Color("949494")
 const RARE = Color("00a2f0")
 const EPIC = Color("e01686")
+const LEGENDARY = Color("f39500")
 
 
 var equipment : Equipment = Equipment.new()
@@ -16,12 +17,15 @@ var has_offset : bool = false
 @onready var detectArea : Area3D = $DetectArea
 
 func _ready():
-	if equipment.rarity == "common":
-		$Sprite3D.modulate = COMMON
-	elif equipment.rarity == "rare":
-		$Sprite3D.modulate = RARE
-	elif equipment.rarity == "epic":
-		$Sprite3D.modulate = EPIC
+	match equipment.rarity:
+		"common":
+			$Sprite3D.modulate = COMMON
+		"rare":
+			$Sprite3D.modulate = RARE
+		"epic":
+			$Sprite3D.modulate = EPIC
+		"legendary":
+			$Sprite3D.modulate = LEGENDARY
 	$AnimationPlayer.play("drop")
 	$AnimationPlayer.queue("idle")
 

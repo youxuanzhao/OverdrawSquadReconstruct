@@ -11,14 +11,15 @@ func _ready() -> void:
 func spawn(src: Entity) -> void:
 	var temp: EntityContainer = entity_template_scene.instantiate()
 	temp.entity = src
-	temp.position = Vector3(0,0.2,-0.6)
+	temp.position = Vector3(-0.033,0.1,-0.801)
 	add_child(temp)
 	temp.enter_combat()
 
 func kill_current_enemy() -> void:
 	get_child(0).kill()
 
+func interrupt_current_enemy() -> void:
+	get_child(0).interrupt()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
 	pass
-

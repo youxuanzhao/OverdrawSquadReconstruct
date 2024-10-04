@@ -10,6 +10,7 @@ var entity_resource: CompressedTexture2D
 
 var timer_id: int
 var entity_bar_id: int
+var max_countdown: float
 var countdown: float
 var is_paused: bool = true
 
@@ -21,7 +22,6 @@ var entity_label_resource: CompressedTexture2D = preload("res://assets/general/e
 var loot_rate : float
 var loot_pool : Array
 var loot_list: Array = []
-var status_list : Array[Status] = []
 var intent_cycle: IntentCycle = IntentCycle.new([Intent.new()]);
 
 func load_data(data: Dictionary,entitySet: String) -> void:
@@ -46,6 +46,7 @@ func _on_entity_spawn() -> void:
 	GameManager.instance.s_damage_enemy.connect(damaged)
 
 func _init() -> void:
+	max_countdown = intent_cycle.cycle_list[0].intent_wait_time
 	countdown = intent_cycle.cycle_list[0].intent_wait_time
 
 
@@ -94,11 +95,15 @@ func loot_from_pool():
 	var temp = randi_range(0,loot_pool.size()-1)
 	return pack_loot(loot_pool[temp]["equipment_set"],loot_pool[temp]["equipment_name"])
 
-
+func interrupt() -> void:
+	instance_from_id(timer_id).start(intent_cycle.skip())
+	instance_from_id(entity_bar_id).update_tooltip(intent_cycle.get_current_intent())
+	countdown = intent_cycle.get_current_intent().intent_wait_time
 
 func _on_timeout() -> void:
 	instance_from_id(timer_id).start(intent_cycle.cycle())
 	instance_from_id(entity_bar_id).update_tooltip(intent_cycle.get_current_intent())
+	countdown = intent_cycle.get_current_intent().intent_wait_time
 
 func damaged(damage: int) -> void:
 	current_health = current_health - damage

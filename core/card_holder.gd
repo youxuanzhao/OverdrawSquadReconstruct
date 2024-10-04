@@ -8,6 +8,7 @@ var select_fixation: bool = false
 
 func _ready():
 	instance = self
+	modulate = Color("ffffff80")
 
 func add_card(src: Card) -> void:
 	if get_child_count() < GameManager.instance.max_hand_count:
@@ -52,3 +53,11 @@ func _process(delta) -> void:
 	if Input.is_action_just_released("left_click"):
 		var htween = get_tree().create_tween().set_parallel()
 		htween.tween_callback(card_fan).set_delay(0.1)
+
+
+func _on_out_of_hand_detection_mouse_entered() -> void:
+	modulate = Color("ffffff")
+
+
+func _on_out_of_hand_detection_mouse_exited() -> void:
+	modulate = Color("ffffff80")

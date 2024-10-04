@@ -34,7 +34,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.06, 0.06, 0.06), Vector3(1, 1, 1)]
+"values": [Vector3(0.06, 0.06, 0.06), Vector3(0.6, 0.6, 0.6)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -122,8 +122,9 @@ texture = ExtResource("1_nb0o0")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, -8.41576e-16, 1.04636e-15, 3.48787e-16, 2.41287, -1.04636e-15, -3.48787e-16, 8.41576e-16, 3, 2.08165e-12, 0.256201, -0.01)
-modulate = Color(0.88, 0.088, 0.5236, 1)
+modulate = Color(0.954281, 0.586092, 0, 1)
 texture_filter = 0
+render_priority = 1
 texture = ExtResource("3_2xsdf")
 
 [connection signal="mouse_entered" from="DetectArea" to="." method="_on_detect_area_mouse_entered"]

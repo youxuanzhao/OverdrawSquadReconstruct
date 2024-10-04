@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bh05ghfu3k26p"]
+[gd_scene load_steps=15 format=3 uid="uid://bh05ghfu3k26p"]
 
 [ext_resource type="Script" path="res://core/card_container.gd" id="1_43o8o"]
 [ext_resource type="Texture2D" uid="uid://duhy1270mcnoh" path="res://assets/general/card_back.png" id="2_gdrm8"]
@@ -81,6 +81,59 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1.6, 1.6)]
+}
+
+[sub_resource type="Animation" id="Animation_gu5p6"]
+resource_name = "discard"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -150), Vector2(3000, -150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.940172]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.6, 1.6), Vector2(0.8, 0.8)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"discard"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_y1gnr"]
@@ -190,6 +243,72 @@ tracks/1/keys = {
 "values": [-0.0872665, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_l5m4o"]
+resource_name = "play"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(-2.08165e-12, -150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 8),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.6, 1.6), Vector2(0.6, 0.6)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_v04od"]
 resource_name = "right_offset"
 length = 0.3
@@ -246,59 +365,6 @@ tracks/1/keys = {
 "values": [0.0872665, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_gu5p6"]
-resource_name = "discard"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -150), Vector2(3000, -150)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.3, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.940172]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1.6, 1.6), Vector2(0.8, 0.8)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("..")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"discard"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_myyhp"]
 _data = {
 "RESET": SubResource("Animation_xgvxh"),
@@ -306,6 +372,7 @@ _data = {
 "draw": SubResource("Animation_y1gnr"),
 "left_offset": SubResource("Animation_ddwtx"),
 "left_offset_back": SubResource("Animation_snw22"),
+"play": SubResource("Animation_l5m4o"),
 "right_offset": SubResource("Animation_v04od"),
 "right_offset_back": SubResource("Animation_cy1ce")
 }
@@ -373,11 +440,10 @@ custom_minimum_size = Vector2(90, 16)
 layout_mode = 2
 mouse_filter = 2
 bbcode_enabled = true
-text = "[font=\"res://assets/font/dpcomic.ttf\"][color=#271c40][outline_size=2][font_size=18][outline_color=white][center]Attack[/center][/outline_color][/font_size][/outline_size][/color][/font]
+text = "[font=\"res://assets/font/dpcomic.ttf\"][color=#271c40][outline_size=2][font_size=14][outline_color=white][center]Spread the Plague[/center][/outline_color][/font_size][/outline_size][/color][/font]
 "
 fit_content = true
 scroll_active = false
-autowrap_mode = 0
 custom_effects = [null]
 
 [node name="DescText" type="RichTextLabel" parent="Local/Container/VBoxContainer"]

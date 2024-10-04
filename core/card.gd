@@ -31,10 +31,10 @@ func load_data(data: Dictionary,cardSet: String) -> void:
 	type = data["type"]
 	card_name = data["card_name"]
 	card_display_name = data["card_display_name"]
-	card_display_name_bbcode = "[font=res://assets/font/dpcomic.ttf][color=#271c40][outline_size=2][font_size=18][outline_color=white][center]"
+	card_display_name_bbcode = data["card_display_name_bbcode"] 
 	card_desc = data["card_desc"]
 	card_display_desc = data["card_display_desc"]
-	card_display_desc_bbcode = "[font=res://assets/font/retganon.ttf][font_size=16][center]"
+	card_display_desc_bbcode = data["card_display_desc_bbcode"]
 	card_resource = load(str("res://assets/card/", card_set, "/",data["card_resource"]))
 
 func get_data() -> Dictionary:

@@ -38,10 +38,15 @@ func _process(delta):
 		else:
 			card._on_card_play()
 			CardHolder.instance.card_fan()
-			queue_free()
-
+			GameManager.instance.s_played_card.emit(card.type)
+			animPlayer.play("play")
 	if isHolding:
 		position = get_global_mouse_position() - holdingOffset
+	
+	if isHovering:
+		cardFrame.material = preload("res://assets/material/outline.tres")
+	else:
+		cardFrame.material = null
 
 
 

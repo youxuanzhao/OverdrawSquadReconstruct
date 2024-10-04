@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/retganon.ttf-802fbdb8b77ec9488de276dbbdc8bb16
 Rendering=null
 antialiasing=0
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
@@ -24,15 +25,21 @@ hinting=0
 subpixel_positioning=1
 oversampling=0.0
 Fallbacks=null
-fallbacks=[]
+fallbacks=[Resource("res://assets/font/dpcomic.ttf")]
 Compress=null
 compress=false
 preload=[{
-"chars": [],
+"chars": [125, 123, 92, 95, 47, 43, 38, 37, 36, 32],
 "glyphs": [],
 "name": "New Configuration",
 "size": Vector2i(16, 0),
 "variation_embolden": 0.0
+}, {
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0),
+"variation_embolden": null
 }]
 language_support={}
 script_support={}

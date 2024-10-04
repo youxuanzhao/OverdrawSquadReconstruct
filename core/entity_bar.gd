@@ -7,9 +7,10 @@ extends Node2D
 
 @onready var HealthBar: TextureProgressBar = $HBoxContainer/HealthBar
 @onready var Action: TextureProgressBar = $HBoxContainer/Action
-@onready var HealthText: Label = $HealthText
+@onready var HealthText: Label = $HBoxContainer/HealthBar/HealthText
 @onready var ActionToolTip: Sprite2D = $HBoxContainer/Action/ActionToolTip
 @onready var ActionLabel: Label = $HBoxContainer/Action/ActionLabel
+@onready var EntityStatusHolder: StatusHolder = $StatusHolder
 
 var owner_entity: Entity
 var owner_entity_container: EntityContainer

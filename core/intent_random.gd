@@ -19,10 +19,6 @@ func _init(list: Array[Intent],chance: Array):
 
 func random() -> float:
     var temp = randf_range(0,total_chance)
-    
-
-
-
 	cycle_list[cycle_count]._effect()
 	cycle_count +=1
 	if cycle_count >= cycle_list.size():

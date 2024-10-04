@@ -78,6 +78,3 @@ func get_remaining_time() -> float:
 
 func get_total_time() -> float:
 	return default_countdown
-
-func _process(delta) -> void:
-	pass

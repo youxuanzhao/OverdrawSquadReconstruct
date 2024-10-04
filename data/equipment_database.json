@@ -48,5 +48,115 @@
 			"rarity": "epic",
 			"cost" : 5.0
 		}
+	},
+	"standard": {
+		"chemist_robe":{
+			"equipment_name": "chemist_robe",
+			"equipment_display_name": "Chemist Robe",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "chest",
+			"equipment_desc": "A robe worn by chemists.",
+			"equipment_display_desc": "A robe worn by chemists.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "chemist_robe.png",
+			"rarity": "common",
+			"cost" : 5.0
+		},
+		"crown_of_thorns":{
+			"equipment_name": "crown_of_thorns",
+			"equipment_display_name": "Crown of Thorns",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "head",
+			"equipment_desc": "A crown made of thorns.",
+			"equipment_display_desc": "A crown made of thorns.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "crown_of_thorns.png",
+			"rarity": "epic",
+			"cost" : 10.0
+		},
+		"daisho":{
+			"equipment_name": "daisho",
+			"equipment_display_name": "Daisho",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "mainHand",
+			"equipment_desc": "A pair of swords.",
+			"equipment_display_desc": "A pair of swords.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "daisho.png",
+			"rarity": "rare",
+			"cost" : 10.0
+		},
+		"katana":{
+			"equipment_name": "katana",
+			"equipment_display_name": "Katana",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "mainHand",
+			"equipment_desc": "A katana.",
+			"equipment_display_desc": "A katana.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "katana.png",
+			"rarity": "common",
+			"cost" : 5.0
+		},
+		"mage_robe":{
+			"equipment_name": "mage_robe",
+			"equipment_display_name": "Mage Robe",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "chest",
+			"equipment_desc": "A robe worn by mages.",
+			"equipment_display_desc": "A robe worn by mages.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "mage_robe.png",
+			"rarity": "common",
+			"cost" : 5.0
+		},
+		"sigil_of_rage":{
+			"equipment_name": "sigil_of_rage",
+			"equipment_display_name": "Sigil of Rage",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "necklace",
+			"equipment_desc": "A sigil that increases rage.",
+			"equipment_display_desc": "A sigil that increases rage.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "sigil_of_rage.png",
+			"rarity": "rare",
+			"cost" : 10.0
+		},
+		"staff":{
+			"equipment_name": "staff",
+			"equipment_display_name": "Staff",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "mainHand",
+			"equipment_desc": "A staff.",
+			"equipment_display_desc": "A staff.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "staff.png",
+			"rarity": "common",
+			"cost" : 5.0
+		},
+		"storm_axe":{
+			"equipment_name": "storm_axe",
+			"equipment_display_name": "Storm Axe",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "mainHand",
+			"equipment_desc": "An axe that controls storms.",
+			"equipment_display_desc": "An axe that controls storms.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "storm_axe.png",
+			"rarity": "epic",
+			"cost" : 10.0
+		},
+		"berserkers_scream":{
+			"equipment_name": "berserkers_scream",
+			"equipment_display_name": "Berserker's Scream",
+			"equipment_display_name_bbcode": "",
+			"equipment_body_part": "head",
+			"equipment_desc": "Deadly scream of a berserker.",
+			"equipment_display_desc": "Deadly scream of a berserker.",
+			"equipment_display_desc_bbcode": "",
+			"equipment_resource": "berserkers_scream.png",
+			"rarity": "legendary",
+			"cost" : 10.0
+		}
 	}
 }

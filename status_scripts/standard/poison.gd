@@ -6,6 +6,8 @@ func _init():
 func _on_effect_trigger():
     if target == "player":
         GameManager.instance.damage_player(intensity,true)
+    elif target == "enemy":
+        GameManager.instance.damage_enemy(intensity,false,false)
 
 func _on_decay():
     _on_effect_trigger()

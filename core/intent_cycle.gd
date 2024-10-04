@@ -16,5 +16,11 @@ func cycle() -> float:
 		cycle_count = 0
 	return cycle_list[cycle_count].intent_wait_time
 
+func skip() -> float:
+	cycle_count +=1
+	if cycle_count >= cycle_list.size():
+		cycle_count = 0
+	return cycle_list[cycle_count].intent_wait_time
+
 func get_current_intent() -> Intent:
 	return cycle_list[cycle_count]

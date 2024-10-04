@@ -12,6 +12,9 @@ func _ready() -> void:
 func equipToSlot(equipment:Equipment) -> void:
 	for i in get_children():
 		if i.body_part == equipment.get_body_part():
+			if i.equipment != null:
+				i.equipment.kill_timer()
+				i.equipment._on_equipment_drop()
 			i.equipment = equipment
 			i.connect_signals()
 			i.reset_pause_status()

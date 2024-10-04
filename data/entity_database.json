@@ -24,9 +24,57 @@
 		}
 	},
 	"forest": {
-		"monster1": {
-			"health": 5,
-			"resource": "snake.png"
+		"snake":{
+			"entity_name": "snake",
+			"entity_display_name": "Snake",
+			"health": 16,
+			"entity_resource": "snake.png",
+			"min_loot_number": 0,
+			"max_loot_number": 1,
+			"loot_rate": 1.0,
+			"loot_list": [
+				{
+					"equipment_set": "standard",
+					"equipment_name": "chemist_robe",
+					"drop_rate": 10
+				},
+				{
+					"equipment_set": "standard",
+					"equipment_name": "crown_of_thorns",
+					"drop_rate": 10
+				},
+				{
+					"equipment_set": "standard",
+					"equipment_name": "daisho",
+					"drop_rate": 10
+				},
+				{
+					"equipment_set": "standard",
+					"equipment_name": "mage_robe",
+					"drop_rate": 10
+				},
+				{
+					"equipment_set": "standard",
+					"equipment_name": "sigil_of_rage",
+					"drop_rate": 10
+				},
+				{
+					"equipment_set": "standard",
+					"equipment_name": "storm_axe",
+					"drop_rate": 10
+				},
+				{
+					"equipment_set": "standard",
+					"equipment_name": "staff",
+					"drop_rate": 20
+				},
+				{
+					"equipment_set": "standard",
+					"equipment_name": "berserkers_scream",
+					"drop_rate": 5
+				}
+			],
+			"loot_pool": "test"
 		}
 	}
 }

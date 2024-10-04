@@ -30,6 +30,7 @@ static var instance: GameManager
 @export var offset_card_fan_y_offset: float = 20
 
 # Modifiers
+@export_category("Modifiers")
 @export var critical_chance: float = 0
 @export var critical_damage_modifier: float = 2
 @export var global_cooldown_modifier: float = 1
@@ -45,13 +46,13 @@ var entity_database : JSON = preload("res://data/entity_database.json")
 var status_database : JSON = preload("res://data/status_database.json")
 var init_list : JSON = preload("res://data/init_list.json")
 
-
- 
 @onready var out_of_hand_detection : Area2D = $CanvasLayer/OutOfHandDetection
 @onready var camera: Camera3D = $Camera
 @onready var player_health_bar : TextureProgressBar = $CanvasLayer/PlayerHealthBar
-@onready var player_health_bar_display : Label = $CanvasLayer/PlayerHealthBarDisplay
-@onready var player_mana_bar : ProgressBar = $CanvasLayer/PlayerManaBar
+@onready var player_health_bar_display : Label = $CanvasLayer/PlayerHealthBar/PlayerHealthBarDisplay
+@onready var player_mana_bar : TextureProgressBar = $CanvasLayer/PlayerManaBar
+@onready var player_mana_bar_display: Label = $CanvasLayer/PlayerManaBar/PlayerManaBarDisplay
+@onready var player_status_holder: StatusHolder = $CanvasLayer/StatusHolder
 
 var current_enemy_id: int
 var is_hovering_on_card : bool
@@ -62,6 +63,7 @@ var current_absorption: int = 0
 signal s_damage_enemy(damage:int)
 signal s_critical_damage()
 signal s_gameover()
+signal s_played_card(type:String)
 
 
 func _ready() -> void:
@@ -79,23 +81,31 @@ func _ready() -> void:
 
 
 func _process(delta) -> void:
-	if player_hp + player_hp_regen * delta <= player_hp_max:
+	if player_hp <= player_hp_max:
 		player_hp+= player_hp_regen * delta
-	if player_mp + player_mp_regen * delta <= player_mp_max:
+		if player_hp > player_hp_max:
+			player_hp = player_hp_max
+	if player_mp <= player_mp_max:
 		player_mp+= player_mp_regen * delta
+		if player_mp > player_mp_max:
+			player_mp = player_mp_max
 	if current_absorption == 0:
-		player_health_bar_display.text = str(player_hp)
+		player_health_bar_display.text = str(roundi(player_hp)," | ",player_hp_max)
 	else:
-		player_health_bar_display.text = str(str(player_hp)," (",str(current_absorption),")")
+		player_health_bar_display.text = str(str(roundi(player_hp)," | ",player_hp_max)," (",str(current_absorption),")")
+	player_mana_bar_display.text = str(roundi(player_mp)," | ",player_mp_max)
 	player_health_bar.value = player_hp
 	player_mana_bar.value = player_mp
-	if Input.is_action_just_pressed("ui_accept"):
-		#disarm("head")
-		inflict_status("standard","crit",5,"player")
-		#CardHolder.instance.discard_all()
-		#discard(10)
-	if Input.is_action_just_pressed("ui_cancel"):
-		spawn("test","snake")
+	
+	#debug input here.
+	# if Input.is_action_just_pressed("ui_accept"):
+	# 	test_function("test")
+	# 	#disarm("head")
+	# 	#inflict_status("standard","poison",5,"enemy")
+	# 	#CardHolder.instance.discard_all()
+	# 	discard(1)
+	# if Input.is_action_just_pressed("ui_cancel"):
+	# 	spawn("forest","snake")
 
 func init_status():
 	pass
@@ -176,21 +186,11 @@ func generate_loot(entityContainer: EntityContainer, lootContainer:LootContainer
 
 # Effect Function
 
-func damage_enemy(damage: int, can_crit: bool, is_spell: bool) -> bool:
-	if is_spell:
-		damage+=spell_damage_buff
-	if can_crit:
-		if randf_range(0,1) <= critical_chance:
-			damage*=critical_damage_modifier
-			s_critical_damage.emit()
-	s_damage_enemy.emit(damage)
-	return false
-
 func inflict_status(status_set: String, status_name: String, status_intensity: int, target: String):
 	if target == "player":
-		if StatusHolder.instance.check_exist_status(status_name):
+		if player_status_holder.check_exist_status(status_name):
 			print("exists")
-			StatusHolder.instance.add_intensity(status_intensity,status_name)
+			player_status_holder.add_intensity(status_intensity,status_name)
 		else:
 			print("not_exist")
 			var script : Script = load(str("res://status_scripts/",status_set,"/",status_name,".gd"))
@@ -199,9 +199,21 @@ func inflict_status(status_set: String, status_name: String, status_intensity: i
 			temp.load_data(parse_database("status",status_set,status_name),status_set)
 			temp.target = "player"
 			temp.intensity = status_intensity
-			StatusHolder.instance.add_status(temp)
+			player_status_holder.add_status(temp)
 	elif target == "enemy":
-		pass
+		if EnemyHolder.instance.get_child_count() == 0:
+			return
+		var entity_status_holder_ref = instance_from_id(EnemyHolder.instance.get_child(0).entity.entity_bar_id).EntityStatusHolder
+		if entity_status_holder_ref.check_exist_status(status_name):
+			entity_status_holder_ref.add_intensity(status_intensity,status_name)
+		else:
+			var script : Script = load(str("res://status_scripts/",status_set,"/",status_name,".gd"))
+			var temp = Status.new()
+			temp.set_script(script)
+			temp.load_data(parse_database("status",status_set,status_name),status_set)
+			temp.target = "enemy"
+			temp.intensity = status_intensity
+			entity_status_holder_ref.add_status(temp)
 
 func activate(body_part: String):
 	EquipmentHolder.instance.activate(body_part)
@@ -231,7 +243,7 @@ func kill_enemy():
 	EnemyHolder.instance.kill_current_enemy()
 
 func interrupt():
-	pass
+	EnemyHolder.instance.interrupt_current_enemy()
 
 func disarm(body_part: String):
 	if EquipmentHolder.instance.get_body_part(body_part) != null and EquipmentHolder.instance.get_body_part(body_part).equipment != null:
@@ -269,6 +281,16 @@ func add_max_health(amount: int):
 	player_hp_max += amount
 	player_hp += amount
 
+func damage_enemy(damage: int, can_crit: bool, is_spell: bool) -> bool:
+	if is_spell:
+		damage+=spell_damage_buff
+	if can_crit:
+		if randf_range(0,1) <= critical_chance:
+			damage*=critical_damage_modifier
+			s_critical_damage.emit()
+	s_damage_enemy.emit(damage+damage_buff)
+	return false
+
 func damage_player(damage: int, ignore: bool) -> void:
 	if !ignore:
 		if damage <= current_absorption:
@@ -283,6 +305,24 @@ func damage_player(damage: int, ignore: bool) -> void:
 		player_hp = 0
 		s_gameover.emit()
 
+func damage(amount: int, can_crit: bool, is_spell: bool, ignore_absorption: bool, target: String):
+	var result: Result = Result.new(Result.ResultTypes.Damage)
+	if target == "player":
+		pass
+	elif target == "enemy":
+		if is_spell:
+			amount+=spell_damage_buff
+		if can_crit:
+			if randf_range(0,1) <= critical_chance:
+				result.is_crit = true
+				amount*=critical_damage_modifier
+				s_critical_damage.emit()
+		s_damage_enemy.emit(amount)
+
+func test_function(abc: String) -> void:
+	print(abc)
+
+
 func absorb(amount: int, target: String) -> void:
 	if target == "player":
 		current_absorption += amount
@@ -293,3 +333,9 @@ func initialize_equipment(init_list_name: String) -> void:
 	var temp : Array = init_list.data[init_list_name]
 	for i in temp:
 		equip(i["equipment_set"],i["equipment_name"])
+
+
+func _on_generate_timer_timeout() -> void:
+	if EnemyHolder.instance.get_child_count() == 0:
+		spawn("forest","snake")
+		

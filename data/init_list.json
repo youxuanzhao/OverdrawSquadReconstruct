@@ -1,8 +1,8 @@
 {
 	"init_test": [
 		{
-			"equipment_set" : "test",
-			"equipment_name" : "helmet"
+			"equipment_set" : "standard",
+			"equipment_name" : "katana"
 		},
 		{
 			"equipment_set" : "test",

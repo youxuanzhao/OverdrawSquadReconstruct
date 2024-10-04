@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cdoqsvk3uitq7"]
+[gd_scene load_steps=28 format=3 uid="uid://cdoqsvk3uitq7"]
 
 [ext_resource type="Script" path="res://core/game_manager.gd" id="1_xxrc1"]
 [ext_resource type="Texture2D" uid="uid://btgiqn57h4q80" path="res://assets/general/equipment_holder_bg.png" id="2_csx4c"]
@@ -11,59 +11,62 @@
 [ext_resource type="Texture2D" uid="uid://xfbhd2s1koq5" path="res://assets/general/bar_health_over.png" id="8_qrquu"]
 [ext_resource type="Script" path="res://core/enemy_holder.gd" id="9_dr6k4"]
 [ext_resource type="Texture2D" uid="uid://b2sp33cjd7qqv" path="res://assets/general/bar_health_progress.png" id="9_iy7uc"]
+[ext_resource type="Texture2D" uid="uid://rs5h6dmssa8s" path="res://assets/general/bar_mana_under.png" id="11_3v60w"]
 [ext_resource type="Script" path="res://core/status_holder.gd" id="11_406qi"]
+[ext_resource type="Texture2D" uid="uid://d3ao0notu1gbb" path="res://assets/general/bar_mana_progress.png" id="12_oqrbp"]
+[ext_resource type="Texture2D" uid="uid://bw1pxvl1iruq5" path="res://assets/environment/grass_tile.png" id="12_y40fr"]
+[ext_resource type="Texture2D" uid="uid://bxklxr1nb11e7" path="res://assets/environment/forest.png" id="13_hrab7"]
+[ext_resource type="Texture2D" uid="uid://bod3cuwpufxvb" path="res://assets/environment/tree.png" id="15_ecsto"]
+[ext_resource type="Texture2D" uid="uid://bnu1rkc58hesa" path="res://assets/environment/landescape.png" id="16_73vgc"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qld43"]
-sky_top_color = Color(0.815686, 0.47451, 0.913725, 1)
-sky_horizon_color = Color(1, 1, 1, 1)
-sky_curve = 0.0349888
-ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0.313726, 0.384314, 0.901961, 1)
-ground_curve = 0.0141422
-sun_angle_max = 25.56
-sun_curve = 0.243676
+[sub_resource type="Gradient" id="Gradient_wwyk1"]
+offsets = PackedFloat32Array(0.128378, 0.452703, 0.543919)
+colors = PackedColorArray(0.162177, 0.519912, 0.858285, 1, 4.42803e-06, 0.732582, 0.877821, 1, 0.851389, 0.923636, 0.944317, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kbqm3"]
+gradient = SubResource("Gradient_wwyk1")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_mwv6j"]
+panorama = SubResource("GradientTexture2D_kbqm3")
 
 [sub_resource type="Sky" id="Sky_e2nx6"]
-sky_material = SubResource("ProceduralSkyMaterial_qld43")
+sky_material = SubResource("PanoramaSkyMaterial_mwv6j")
 
 [sub_resource type="Environment" id="Environment_m04f0"]
 background_mode = 2
 sky = SubResource("Sky_e2nx6")
-tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e1xt"]
-size = Vector2(1931, 329.5)
+size = Vector2(1931, 358.5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nri5x"]
+font = ExtResource("7_yl100")
+font_size = 64
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_o8mq1"]
+albedo_color = Color(0.966817, 0.921798, 0.973584, 1)
+albedo_texture = ExtResource("12_y40fr")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 1.25599
+texture_filter = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cgkis"]
 size = Vector2(5.64, 8.8)
 
 [node name="GameManager" type="Node3D"]
 script = ExtResource("1_xxrc1")
-stage = null
-player_hp = null
-player_hp_max = null
-player_hp_regen = null
-player_mp = null
-player_mp_max = null
-player_mp_regen = null
-max_hand_count = null
 hand_anim_speed = 0.3
 hand_anim_speed_fast = 0.15
-default_card_rotation_degree = null
-on_hover_card_rotation_degree = null
 offset_card_rotation_degree = 4.0
-default_card_fan_radius = null
 on_hover_card_fan_radius = 2800.0
-offset_card_fan_radius = null
 offset_card_fan_y_offset = 35.0
-critical_chance = null
-critical_damage_modifier = null
-global_cooldown_modifier = null
-damage_buff = null
-attack_buff = null
-spell_damage_buff = null
-spell_cost_modifier = null
+
+[node name="GenerateTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_m04f0")
@@ -73,7 +76,8 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 2.08165e-12, 0.3, 2.08165e-12)
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, -0.0280633, 0.160036, 2.08165e-12)
+fov = 60.0
 script = ExtResource("2_p7mrm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -142,6 +146,7 @@ texture = ExtResource("2_csx4c")
 centered = false
 
 [node name="CardHolder" type="Node2D" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.501961)
 position = Vector2(933, 867)
 script = ExtResource("5_53sbl")
 
@@ -149,45 +154,60 @@ script = ExtResource("5_53sbl")
 position = Vector2(0, 564)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/OutOfHandDetection"]
-position = Vector2(957, 351.75)
+position = Vector2(957, 337.25)
 shape = SubResource("RectangleShape2D_0e1xt")
 
 [node name="PlayerHealthBar" type="TextureProgressBar" parent="CanvasLayer"]
-offset_right = 96.0
-offset_bottom = 16.0
-scale = Vector2(8, 5)
+texture_filter = 1
+texture_repeat = 1
+offset_right = 802.0
+offset_bottom = 84.0
 value = 20.0
 rounded = true
+nine_patch_stretch = true
 texture_under = ExtResource("7_7n842")
 texture_over = ExtResource("8_qrquu")
 texture_progress = ExtResource("9_iy7uc")
 
-[node name="PlayerHealthBarDisplay" type="Label" parent="CanvasLayer"]
-offset_left = 300.0
-offset_top = 14.0
-offset_right = 444.0
-offset_bottom = 66.0
-theme_override_fonts/font = ExtResource("7_yl100")
-theme_override_font_sizes/font_size = 58
-text = "20"
+[node name="PlayerHealthBarDisplay" type="Label" parent="CanvasLayer/PlayerHealthBar"]
+layout_mode = 0
+offset_right = 802.0
+offset_bottom = 84.0
+text = "20 | 100
+"
+label_settings = SubResource("LabelSettings_nri5x")
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="PlayerManaBar" type="ProgressBar" parent="CanvasLayer"]
-offset_top = 116.0
-offset_right = 599.0
-offset_bottom = 176.0
-theme_override_fonts/font = ExtResource("7_yl100")
-theme_override_font_sizes/font_size = 48
-step = 1.0
+[node name="PlayerManaBar" type="TextureProgressBar" parent="CanvasLayer"]
+texture_filter = 1
+texture_repeat = 1
+offset_top = 137.0
+offset_right = 681.0
+offset_bottom = 218.0
 value = 20.0
 rounded = true
+nine_patch_stretch = true
+texture_under = ExtResource("11_3v60w")
+texture_over = ExtResource("8_qrquu")
+texture_progress = ExtResource("12_oqrbp")
+
+[node name="PlayerManaBarDisplay" type="Label" parent="CanvasLayer/PlayerManaBar"]
+layout_mode = 0
+offset_right = 681.0
+offset_bottom = 81.0
+text = "100 | 100
+"
+label_settings = SubResource("LabelSettings_nri5x")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="StatusHolder" type="HBoxContainer" parent="CanvasLayer"]
 custom_minimum_size = Vector2(200, 60)
 layout_direction = 3
-offset_left = 657.0
+offset_left = 653.0
 offset_top = 91.0
-offset_right = 857.0
+offset_right = 853.0
 offset_bottom = 151.0
 scale = Vector2(4, 4)
 size_flags_horizontal = 3
@@ -195,8 +215,355 @@ size_flags_vertical = 3
 script = ExtResource("11_406qi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.11285, 2.08165e-12)
+transform = Transform3D(1.36653, 0, 0, 0, 1, 0, 0, 0, 0.946096, 2.08165e-12, -0.11285, 2.08165e-12)
+material_overlay = SubResource("ORMMaterial3D_o8mq1")
 mesh = SubResource("PlaneMesh_cgkis")
 
 [node name="EnemyHolder" type="Node3D" parent="."]
 script = ExtResource("9_dr6k4")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Bush1" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2755, 0.0463112, -0.922889)
+modulate = Color(0.761579, 0.719574, 0.952718, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+
+[node name="Bush13" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.68983, 0, 0.426766, 0, 0.757822, 0, -0.38087, 0, 0.772957, -0.753992, 0.0463112, -1.3043)
+modulate = Color(0.761579, 0.719574, 0.952718, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+
+[node name="Bush28" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.18737, 0, 0.59671, 0, 1.38217, 0, -0.65557, 0, 1.08076, -0.759162, 0.0688967, -2.25502)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+
+[node name="Bush29" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.22754, 0, 0.525059, 0, 1.38217, 0, -0.576852, 0, 1.11733, -2.15261, 0.0688967, -2.25502)
+modulate = Color(0.819655, 0.819655, 0.819655, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+
+[node name="Bush30" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.28546, 0, 0.393831, 0, 1.38217, 0, -0.432679, 0, 1.17004, -1.28595, 0.0688967, -2.02644)
+modulate = Color(0.819655, 0.819655, 0.819655, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+
+[node name="Bush6" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.45642, 0, -0.367297, 0, 1.56587, 0, 0.575139, 0, 0.930104, 0.252293, 0.0463112, -1.10498)
+modulate = Color(0.761579, 0.719574, 0.952718, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+
+[node name="Bush14" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.2006, 0, -0.641972, 0, 1.56587, 0, 1.00524, 0, 0.766728, 0.940805, 0.0463112, -0.84156)
+modulate = Color(0.761579, 0.719574, 0.952718, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+
+[node name="Bush15" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.881166, 0, -0.784983, 0, 1.0225, 0, 0.737789, 0, 0.937532, 0.940805, 0.221846, -1.50501)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush16" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.56448, 0, 0.0420675, 0, 1.56587, 0, -0.0658722, 0, 0.999115, -0.158297, 0.393097, -1.46485)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush40" type="Sprite3D" parent="Environment"]
+transform = Transform3D(17.3098, 0, 0.0513181, 0, 17.3461, 0, -0.728825, 0, 1.21882, 1.84447, 0.343087, -20.2895)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("16_73vgc")
+
+[node name="Bush17" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.56448, 0, 0.0420675, 0, 1.56587, 0, -0.0658722, 0, 0.999115, 0.146791, 0.393097, -1.83753)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush18" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.44821, 0, 0.0419359, 0, 1.4494, 0, -0.0609767, 0, 0.995988, -1.03299, 0.357726, -1.83753)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush19" type="Sprite3D" parent="Environment"]
+transform = Transform3D(2.07557, 0, 0.0426461, 0, 2.07786, 0, -0.0873913, 0, 1.01286, -0.50154, 0.49454, -2.03296)
+modulate = Color(0.781407, 0.781407, 0.781407, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush20" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.38109, 0, 0.471258, 0, 1.56587, 0, -0.737929, 0, 0.881995, -2.26253, 0.393097, -2.80197)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush21" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.907169, 0, 0.595934, 0, 1.19207, 0, -0.939893, 0, 0.575186, -1.95823, 0.273022, -2.05025)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush22" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.08745, 0, 0.719522, 0, 1.56587, 0, -1.12668, 0, 0.69447, -2.46064, 0.393097, -1.93242)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush23" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.52284, 0, 0.232817, 0, 1.56587, 0, -0.364562, 0, 0.97252, -1.06083, 0.393097, -2.62052)
+modulate = Color(0.781407, 0.781407, 0.781407, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush24" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.50838, 0, -0.268483, 0, 1.56587, 0, 0.420409, 0, 0.963284, 0.727732, 0.393097, -2.23515)
+modulate = Color(0.851769, 0.851769, 0.851769, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush25" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.963335, 0, -0.788365, 0, 1.56587, 0, 1.23448, 0, 0.615208, 1.706, 0.393097, -1.69558)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush26" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.50838, 0, -0.268483, 0, 1.56587, 0, 0.420409, 0, 0.963284, 1.60978, 0.393097, -2.18479)
+modulate = Color(0.851769, 0.851769, 0.851769, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush27" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1.51861, 0, -0.243818, 0, 1.56587, 0, 0.381787, 0, 0.969821, 1.07316, 0.393097, -2.4494)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush37" type="Sprite3D" parent="Environment"]
+transform = Transform3D(3.27419, 0, -0.172956, 0, 3.43241, 0, 0.823148, 0, 0.687958, 0.667159, 0.968723, -3.22855)
+modulate = Color(0.488895, 0.592144, 0.727221, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush38" type="Sprite3D" parent="Environment"]
+transform = Transform3D(3.06391, 0, 0.297916, 0, 3.43241, 0, -1.41787, 0, 0.643775, -2.03969, 0.968723, -3.22855)
+modulate = Color(0.449677, 0.704361, 0.839795, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush39" type="Sprite3D" parent="Environment"]
+transform = Transform3D(2.97134, 0, -0.0547495, 0, 3.02861, 0, 0.227953, 0, 0.713652, -1.11597, 0.792804, -3.22855)
+modulate = Color(0.743482, 0.743482, 0.743482, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("15_ecsto")
+
+[node name="Bush2" type="Sprite3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.456527, 0.0463112, -0.922889)
+modulate = Color(0.84297, 0.757004, 0.748834, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush31" type="Sprite3D" parent="Environment"]
+transform = Transform3D(2.16909, 0, 0, 0, 2.16909, 0, 0, 0, 1, 1.29605, 0.169349, -1.74466)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush7" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.997825, 0, -0.0659256, 0, 1, 0, 0.0659256, 0, 0.997825, 0.487616, 0.0463112, -0.860779)
+modulate = Color(0.84297, 0.757004, 0.748834, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush32" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.997825, 0, -0.0659256, 0, 1, 0, 0.0659256, 0, 0.997825, 0.487616, 0.0463112, -2.57371)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush33" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.997825, 0, -0.0659256, 0, 1, 0, 0.0659256, 0, 0.997825, -0.269534, 0.0463112, -2.57371)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush34" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.997825, 0, -0.0659256, 0, 1, 0, 0.0659256, 0, 0.997825, 0.00859231, 0.0463112, -2.82622)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush35" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.997825, 0, -0.0659256, 0, 1, 0, 0.0659256, 0, 0.997825, 1.35163, 0.0463112, -2.48366)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush36" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.997825, 0, -0.0659256, 0, 1, 0, 0.0659256, 0, 0.997825, -1.70594, 0.0463112, -2.48366)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush8" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.73592, 0, -0.677069, 0, 1, 0, 0.677069, 0, 0.73592, 0.641874, 0.0463112, -1.13612)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 3
+
+[node name="Bush9" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.997825, 0, -0.0659256, 0, 1, 0, 0.0659256, 0, 0.997825, -1.15252, 0.0463112, -1.56967)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 3
+
+[node name="Bush3" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.930456, 0, -0.366404, 0, 1, 0, 0.366404, 0, 0.930456, 0.118705, 0.0463112, -0.720064)
+modulate = Color(0.84297, 0.757004, 0.748834, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush5" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.930456, 0, -0.366404, 0, 1, 0, 0.366404, 0, 0.930456, 0.438075, 0.0373185, -0.529651)
+modulate = Color(0.84297, 0.757004, 0.748834, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="Bush10" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.337262, 0, -0.458391, 0, 0.314819, 0, 0.13281, 0, 1.16405, 0.222403, -0.0609446, -0.631619)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 2
+
+[node name="Bush11" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.337262, 0, -0.458391, 0, 0.314819, 0, 0.13281, 0, 1.16405, 0.196239, -0.0609446, -0.657583)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 2
+
+[node name="Bush12" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.352408, 0, 0.292711, 0, 0.314819, 0, -0.0848074, 0, 1.21633, -0.519627, -0.0609446, -0.657583)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 2
+
+[node name="Bush4" type="Sprite3D" parent="Environment"]
+transform = Transform3D(0.892184, 0, 0.451672, 0, 1, 0, -0.451672, 0, 0.892184, -0.62468, 0.0463112, -0.720064)
+modulate = Color(0.84297, 0.757004, 0.748834, 1)
+shaded = true
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("13_hrab7")
+hframes = 4
+frame = 1
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.566651, 0.823958, 0, -0.823958, 0.566651, 0, 3.81616, 0)
+
+[connection signal="timeout" from="GenerateTimer" to="." method="_on_generate_timer_timeout"]
+[connection signal="mouse_entered" from="CanvasLayer/OutOfHandDetection" to="CanvasLayer/CardHolder" method="_on_out_of_hand_detection_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/OutOfHandDetection" to="CanvasLayer/CardHolder" method="_on_out_of_hand_detection_mouse_exited"]

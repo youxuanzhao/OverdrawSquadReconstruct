@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://kbydv838gweb"]
+[gd_scene load_steps=14 format=3 uid="uid://kbydv838gweb"]
 
 [ext_resource type="Script" path="res://core/entity_container.gd" id="1_20u4n"]
 [ext_resource type="Texture2D" uid="uid://cs51qb4ikak6f" path="res://assets/general/entity_card_back.png" id="1_xqpdp"]
@@ -7,34 +7,187 @@
 [ext_resource type="Texture2D" uid="uid://b3rf4g2debafn" path="res://assets/general/entity_card_label.png" id="4_pdiu8"]
 [ext_resource type="FontFile" uid="uid://cwkip6e47ytnu" path="res://assets/font/dpcomic.ttf" id="5_q64f1"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53jr1"]
+render_priority = 2
+blend_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_7b881"]
+albedo_color = Color(0, 0, 0, 0.505882)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ww0sa"]
+material = SubResource("ORMMaterial3D_7b881")
+top_radius = 0.45
+bottom_radius = 0.45
+height = 0.001
+
+[sub_resource type="Animation" id="Animation_4xl3m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Local/CardArt:material_overlay:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Local/MeshInstance3D:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.39]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Local:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Local:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_oxp4d"]
+resource_name = "take_damage"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Local/CardArt:material_overlay:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hgqsy"]
+resource_name = "death"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Local/MeshInstance3D:transparency")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Local:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.5708, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Local:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.239541, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"kill"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s85a1"]
+_data = {
+"RESET": SubResource("Animation_4xl3m"),
+"death": SubResource("Animation_hgqsy"),
+"take_damage": SubResource("Animation_oxp4d")
+}
+
 [node name="Entity" type="Node3D"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 script = ExtResource("1_20u4n")
 
-[node name="CardBack" type="Sprite3D" parent="."]
+[node name="Local" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CardBack" type="Sprite3D" parent="Local"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 texture_filter = 0
 texture = ExtResource("1_xqpdp")
 
-[node name="CardArt" type="Sprite3D" parent="."]
+[node name="CardArt" type="Sprite3D" parent="Local"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_overlay = SubResource("StandardMaterial3D_53jr1")
 double_sided = false
 texture_filter = 0
 render_priority = 1
 texture = ExtResource("2_oqxgr")
 
-[node name="CardFrame" type="Sprite3D" parent="."]
+[node name="CardFrame" type="Sprite3D" parent="Local"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 double_sided = false
 texture_filter = 0
-render_priority = 2
+render_priority = 1
 texture = ExtResource("3_vqby4")
 
-[node name="CardLabel" type="Sprite3D" parent="."]
+[node name="CardLabel" type="Sprite3D" parent="Local"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 flip_v = true
 double_sided = false
 texture_filter = 0
 render_priority = 3
 texture = ExtResource("4_pdiu8")
 
-[node name="CardLabelText" type="Label3D" parent="CardLabel"]
+[node name="CardLabelText" type="Label3D" parent="Local/CardLabel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.627537, 0)
 texture_filter = 0
 render_priority = 5
@@ -42,3 +195,16 @@ outline_render_priority = 4
 outline_modulate = Color(0.184314, 0.133333, 0.309804, 1)
 text = "Snake"
 font = ExtResource("5_q64f1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Local"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00721683, -0.709367, -0.00487014)
+transparency = 0.39
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_ww0sa")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Local"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_s85a1")
+}

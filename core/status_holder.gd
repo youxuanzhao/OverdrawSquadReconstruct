@@ -2,10 +2,10 @@ class_name StatusHolder
 extends HBoxContainer
 
 var status_template_scene: PackedScene = preload("res://scene_files/status_container.tscn")
-static var instance: StatusHolder
+
 
 func _ready():
-	instance = self
+	pass
 
 func add_status(status:Status):
 	var temp: StatusContainer = status_template_scene.instantiate()
