@@ -33,8 +33,6 @@ func load_data(data: Dictionary,entitySet: String) -> void:
 	loot_list = data["loot_list"]
 	loot_rate = data["loot_rate"]
 	loot_pool = preload("res://data/loot_pool_data.json").data[data["loot_pool"]]
-	print(loot_list)
-	print(loot_pool)
 	current_health = max_health
 	entity_resource = load(str("res://assets/entity/", entity_set, "/",data["entity_resource"]))
 

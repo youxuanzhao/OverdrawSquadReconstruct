@@ -33,7 +33,6 @@ func load_data():
 	$LootSprite.texture = equipment.resource
 
 func _process(delta):
-	print(position.z)
 	if has_offset:
 		self.position = pos_offset
 	if Input.is_action_just_pressed("left_click") and is_hovering:

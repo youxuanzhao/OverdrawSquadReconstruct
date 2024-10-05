@@ -75,22 +75,6 @@ tracks/3/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_oxp4d"]
-resource_name = "take_damage"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Local/CardArt:material_overlay:emission_energy_multiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 1.0, 0.0]
-}
-
 [sub_resource type="Animation" id="Animation_hgqsy"]
 resource_name = "death"
 length = 0.8
@@ -145,6 +129,22 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_oxp4d"]
+resource_name = "take_damage"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Local/CardArt:material_overlay:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s85a1"]
 _data = {
 "RESET": SubResource("Animation_4xl3m"),
@@ -157,15 +157,12 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 script = ExtResource("1_20u4n")
 
 [node name="Local" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CardBack" type="Sprite3D" parent="Local"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 texture_filter = 0
 texture = ExtResource("1_xqpdp")
 
 [node name="CardArt" type="Sprite3D" parent="Local"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_overlay = SubResource("StandardMaterial3D_53jr1")
 double_sided = false
 texture_filter = 0
@@ -173,14 +170,12 @@ render_priority = 1
 texture = ExtResource("2_oqxgr")
 
 [node name="CardFrame" type="Sprite3D" parent="Local"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 double_sided = false
 texture_filter = 0
 render_priority = 1
 texture = ExtResource("3_vqby4")
 
 [node name="CardLabel" type="Sprite3D" parent="Local"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 flip_v = true
 double_sided = false
 texture_filter = 0
