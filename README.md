@@ -2,6 +2,8 @@
 
 Overdraw Squad is a real-time roguelike card combat game.
 
+![system plan](framework_plan.jpg)
+
 Current progress:
 - [x] Basic card system
 - [x] Basic equipment system
